@@ -7,7 +7,7 @@ const router = Router();
 
 router.post(
   "/create-account",
-  body("name").notEmpty().withMessage("El nombre no puede ir vacío."),
+  body("name").notEmpty().withMessage("El nombre es un campo requerido."),
   body("password")
     .isLength({ min: 8 })
     .withMessage("La contraseña es muy corta, mínimo 8 caracteres."),
@@ -27,6 +27,16 @@ router.post(
   body("token").notEmpty().withMessage("El token no puede ir vacío."),
   handleInputErrors,
   AuthController.confirmAccount
+);
+
+router.post(
+  "/login",
+  body("email").isEmail().withMessage("El correo electrónico no es válido."),
+  body("password")
+    .notEmpty()
+    .withMessage("La contraseña es un campo requerido."),
+  handleInputErrors,
+  AuthController.login
 );
 
 export default router;
