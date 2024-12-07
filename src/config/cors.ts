@@ -4,14 +4,14 @@ export const corsConfig: CorsOptions = {
   origin: (origin, callback) => {
     const whitelist = [process.env.FRONTEND_URL];
 
-    if (process.argv.includes("--api")) {
-      whitelist.push(undefined);
+    if (process.argv[2] === "--api") {
+      whitelist.push(undefined, null);
     }
 
-    if (whitelist.includes(origin)) {
+    if (!origin || whitelist.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error("Error de CORS."));
+      callback(new Error("Error de CORS: origen no permitido"));
     }
   },
 };
