@@ -38,7 +38,7 @@ export class AuthController {
 
       await Promise.allSettled([user.save(), token.save()]);
 
-      res.send("Cuenta creada, inicia sesión.");
+      res.send("Cuenta creada, ya puedes iniciar sesión.");
     } catch (error) {
       res.status(500).json({ error: "Hubo un error." });
     }
